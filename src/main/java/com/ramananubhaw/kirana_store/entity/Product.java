@@ -47,6 +47,9 @@ public class Product {
     @Column(name = "mrp", nullable = false, precision = 8, scale = 2)
     private BigDecimal mrp;
 
+    @Column(name = "description", length = 150)
+    private String description;
+
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)
     private LocalDateTime createdAt;

@@ -9,11 +9,11 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreResponseDTO {
-    private String id;
-    private String name;
-    private String address;
-    private String phoneNo;
-    private String ownerId;
-    private Boolean isActive;
+public class LoginResponseDTO {
+    private String accessToken;
+
+    @Builder.Default
+    private String tokenType = "Bearer";
+    
+    private Long expiresIn;
 }

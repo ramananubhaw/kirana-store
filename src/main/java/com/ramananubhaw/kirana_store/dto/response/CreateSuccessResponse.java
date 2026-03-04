@@ -9,11 +9,7 @@ import lombok.NoArgsConstructor;
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class StoreResponseDTO {
+public class CreateSuccessResponse {
     private String id;
-    private String name;
-    private String address;
-    private String phoneNo;
-    private String ownerId;
-    private Boolean isActive;
+    private String message;
 }

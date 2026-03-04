@@ -17,6 +17,7 @@ import com.ramananubhaw.kirana_store.exception.base.ConflictException;
 import com.ramananubhaw.kirana_store.exception.base.ResourceNotFoundException;
 
 import jakarta.servlet.http.HttpServletRequest;
+import jakarta.validation.ConstraintViolationException;
 import lombok.extern.slf4j.Slf4j;
 
 @RestControllerAdvice
@@ -48,6 +49,18 @@ public class GlobalExceptionHandler {
         ex.getBindingResult().getAllErrors().forEach((error) -> {
             String fieldName = (error instanceof FieldError) ? ((FieldError) error).getField() : error.getObjectName();
             String errorMessage = error.getDefaultMessage();
+            validationErrors.put(fieldName, errorMessage);
+        });
+        return buildErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed for one or more fields", request, validationErrors);
+    }
+
+    // Handle constraint violations
+    @ExceptionHandler(ConstraintViolationException.class)
+    public ResponseEntity<ErrorResponseDTO> handleConstraintViolationError(ConstraintViolationException ex, HttpServletRequest request) {
+        Map<String, String> validationErrors = new HashMap<>();
+        ex.getConstraintViolations().forEach(violation -> {
+            String fieldName = violation.getPropertyPath().toString();
+            String errorMessage = violation.getMessage();
             validationErrors.put(fieldName, errorMessage);
         });
         return buildErrorResponse(HttpStatus.BAD_REQUEST, "Validation failed for one or more fields", request, validationErrors);

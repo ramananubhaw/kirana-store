@@ -57,8 +57,9 @@ public class TransactionItem {
     @Column(name = "unit_price", nullable = false, precision = 8, scale = 2)
     private BigDecimal unitPrice;
 
-    @Column(name = "discount", precision = 8, scale = 2)
-    private BigDecimal discount;
+    @Column(name = "discount", precision = 8, scale = 2, nullable = false)
+    @Builder.Default
+    private BigDecimal discount = BigDecimal.ZERO;
 
     @CreationTimestamp
     @Column(name = "created_at", nullable = false, updatable = false)

@@ -61,8 +61,9 @@ public class Transaction {
     @Column(name = "net_amount", nullable = false, precision = 10, scale = 2)
     private BigDecimal netAmount;
 
-    @Column(name = "amount_adjustment", precision = 10, scale = 2)
-    private BigDecimal amountAdjustment;
+    @Column(name = "amount_adjustment", precision = 10, scale = 2, nullable = false)
+    @Builder.Default
+    private BigDecimal amountAdjustment = BigDecimal.ZERO;
 
     @Enumerated(EnumType.STRING)
     @Column(name = "category", nullable = false)
